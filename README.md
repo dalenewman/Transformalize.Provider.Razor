@@ -28,8 +28,7 @@ Build the Autofac project and put it's output into Transformalize's *plugins* fo
 
 This writes 1000 rows of bogus data to *output.html*.
 
-The template *template.cshtml* is passed a `RazorModel` which consists for an `Entity` and it's `Rows` as `IEnumerable<IRow>.`  It looks like 
-this:
+The template *template.cshtml* is passed a [RazorModel](https://github.com/dalenewman/Transformalize.Provider.Razor/blob/master/src/Transformalize.Provider.Razor/RazorModel.cs).  The template in this example looks like this:
 
 ```html
 @model Transformalize.Providers.Razor.RazorModel
