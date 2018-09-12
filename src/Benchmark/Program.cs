@@ -1,7 +1,7 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using Transformalize.Contracts;
 using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Attributes.Jobs;
 using BenchmarkDotNet.Running;
 using Transformalize.Containers.Autofac;
 using Transformalize.Logging;
@@ -39,6 +39,7 @@ namespace Benchmark {
     public class Program {
         private static void Main(string[] args) {
             var summary = BenchmarkRunner.Run<Benchmarks>();
+            Console.WriteLine(summary);
         }
     }
 }
