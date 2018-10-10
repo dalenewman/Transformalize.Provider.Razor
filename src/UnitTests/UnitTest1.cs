@@ -54,7 +54,7 @@ namespace UnitTests {
             <calculated-fields>
                 <add name='added' type='double' t='razor(@{var x = Model.number1 + Model.number2; }@x)' />
                 <add name='joined' t='razor(@{var x = Model.text1 + Model.text2;}@x)' />
-                <add name='if' t='razor(@{var x = Model.text1 == &quot;Two&quot; || Model.text2 == &quot;Two&quot; || Model.number1 == 2 || Model.number2 == 2.0 ? &quot;It is Two&quot; \: &quot;It is not Two&quot;;}@x)' />
+                <add name='if' t='razor(@{var x = Model.text1 == ""Two"" || Model.text2 == ""Two"" || Model.number1 == 2 || Model.number2 == 2.0 ? ""It is Two"" : ""It is not Two"";}@x)' />
                 <add name='is2' t='razor(@{var x = Model.number1 == 2;}@x)' type='bool' />
             </calculated-fields>
         </add>

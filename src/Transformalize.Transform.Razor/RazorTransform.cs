@@ -16,15 +16,15 @@
 // limitations under the License.
 #endregion
 
+using RazorEngine;
+using RazorEngine.Configuration;
+using RazorEngine.Templating;
+using RazorEngine.Text;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
-using RazorEngine;
-using RazorEngine.Configuration;
-using RazorEngine.Templating;
-using RazorEngine.Text;
 using Transformalize.Configuration;
 using Transformalize.Contracts;
 
@@ -42,22 +42,18 @@ namespace Transformalize.Transforms.Razor {
                 return;
             }
 
+
+
             Returns = Context.Field.Type;
 
-            if (IsMissing(Context.Operation.Template)) {
-                return;
-            }
-
-            if (Context.Operation.ContentType == string.Empty) {
-                Context.Operation.ContentType = "raw"; //other would be html
-            }
+            IsMissing(Context.Operation.Template);
 
         }
 
         public override IRow Operate(IRow row) {
             var output = _service.Run(Context.Key, typeof(ExpandoObject), row.ToFriendlyExpandoObject(_input));
             row[Context.Field] = Context.Field.Convert(output.Trim(' ', '\n', '\r'));
-            
+
             return row;
         }
 
@@ -74,9 +70,7 @@ namespace Transformalize.Transforms.Razor {
             if (!Cache.TryGetValue(key, out _service)) {
                 var config = new TemplateServiceConfiguration {
                     DisableTempFileLocking = true,
-                    EncodedStringFactory = Context.Operation.ContentType == "html"
-                        ? (IEncodedStringFactory)new HtmlEncodedStringFactory()
-                        : new RawStringFactory(),
+                    EncodedStringFactory = Context.Field.Raw ? (IEncodedStringFactory)new HtmlEncodedStringFactory() : new RawStringFactory(),
                     Language = Language.CSharp,
                     CachingProvider = new DefaultCachingProvider(t => { })
                 };
@@ -117,8 +111,7 @@ namespace Transformalize.Transforms.Razor {
         public override IEnumerable<OperationSignature> GetSignatures() {
             yield return new OperationSignature("razor") {
                 Parameters = new List<OperationParameter> {
-                    new OperationParameter("template"),
-                    new OperationParameter("content-type","raw")
+                    new OperationParameter("template")
                 }
             };
         }
