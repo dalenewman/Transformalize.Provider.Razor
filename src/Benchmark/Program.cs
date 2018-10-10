@@ -11,12 +11,12 @@ using Transformalize.Transforms.Razor.Autofac;
 namespace Benchmark {
 
     
-    [LegacyJitX64Job, LegacyJitX86Job]
+    [LegacyJitX64Job]
     public class Benchmarks {
 
-        [Benchmark(Baseline = true, Description = "5000 test rows")]
+        [Benchmark(Baseline = true, Description = "10000 test rows")]
         public void TestRows() {
-            using (var outer = new ConfigurationContainer(new RazorModule()).CreateScope(@"files\bogus.xml?Size=5000")) {
+            using (var outer = new ConfigurationContainer(new RazorModule()).CreateScope(@"files\bogus.xml?Size=10000")) {
                 using (var inner = new TestContainer(new RazorModule(),new BogusModule()).CreateScope(outer, new NullLogger())) {
                     var controller = inner.Resolve<IProcessController>();
                     controller.Execute();
@@ -24,9 +24,9 @@ namespace Benchmark {
             }
         }
 
-        [Benchmark(Baseline = false, Description = "5000 rows with 1 razor")]
+        [Benchmark(Baseline = false, Description = "10000 rows with 1 razor")]
         public void CSharpRows() {
-            using (var outer = new ConfigurationContainer(new RazorModule()).CreateScope(@"files\bogus-with-transform.xml?Size=5000")) {
+            using (var outer = new ConfigurationContainer(new RazorModule()).CreateScope(@"files\bogus-with-transform.xml?Size=10000")) {
                 using (var inner = new TestContainer(new RazorModule(), new BogusModule()).CreateScope(outer, new NullLogger())) {
                     var controller = inner.Resolve<IProcessController>();
                     controller.Execute();
