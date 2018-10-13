@@ -71,8 +71,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>set f="$(SolutionDir)..\Transformalize\Pipeline.Command\bin\$(ConfigurationName)\plugins"
+    <PostBuildEvent>set f="$(SolutionDir)..\Transformalize\Pipeline.Command\plugins"
 
-if exist %25f%25 copy /Y "$(TargetDir)*.*" "%25f%25"</PostBuildEvent>
+if exist %25f%25 copy /Y "$(TargetDir)RazorEngine.dll" "%25f%25"
+if exist %25f%25 copy /Y "$(TargetDir)System.Web.Razor.dll" "%25f%25"
+if exist %25f%25 copy /Y "$(TargetDir)Transformalize.Transform.Razor.dll" "%25f%25"
+if exist %25f%25 copy /Y "$(TargetDir)Transformalize.Transform.Razor.Autofac.dll" "%25f%25"</PostBuildEvent>
   </PropertyGroup>
 </Project>
