@@ -35,6 +35,7 @@ namespace Transformalize.Transforms.Razor {
         private IRazorEngineService _service;
         private Field[] _input;
         private static readonly ConcurrentDictionary<int, IRazorEngineService> Cache = new ConcurrentDictionary<int, IRazorEngineService>();
+        private readonly Func<string, object> _convert;
 
         public RazorTransform(IContext context = null) : base(context, null) {
 
@@ -42,19 +43,20 @@ namespace Transformalize.Transforms.Razor {
                 return;
             }
 
-
-
             Returns = Context.Field.Type;
 
             IsMissing(Context.Operation.Template);
 
+            if (Returns == "string") {
+                _convert = o => (o.Trim('\n', '\r'));
+            } else {
+                _convert = o => Context.Field.Convert(o.Trim(' ', '\n', '\r'));
+            }
+
         }
 
         public override IRow Operate(IRow row) {
-            var output = _service.Run(Context.Key, typeof(ExpandoObject), row.ToFriendlyExpandoObject(_input));
-            row[Context.Field] = Context.Field.Convert(output.Trim(' ', '\n', '\r'));
-
-            return row;
+            throw new NotImplementedException();
         }
 
         public override IEnumerable<IRow> Operate(IEnumerable<IRow> rows) {
@@ -64,9 +66,14 @@ namespace Transformalize.Transforms.Razor {
                 Context.Operation.Template = fileBasedTemplate.Content;
             }
 
-            _input = Context.Entity.GetFieldMatches(Context.Operation.Template).ToArray();
-            var key = GetHashCode(Context.Operation.Template, _input);
+            var input = MultipleInput();
+            var matches = Context.Entity.GetFieldMatches(Context.Operation.Template);
+            _input = input.Union(matches).ToArray();
 
+            if (!Run)
+                yield break;
+
+            var key = GetHashCode(Context.Operation.Template, _input);
             if (!Cache.TryGetValue(key, out _service)) {
                 var config = new TemplateServiceConfiguration {
                     DisableTempFileLocking = true,
@@ -75,18 +82,32 @@ namespace Transformalize.Transforms.Razor {
                     CachingProvider = new DefaultCachingProvider(t => { })
                 };
                 _service = RazorEngineService.Create(config);
+                Cache.TryAdd(key, _service);
             }
 
-            try {
-                RazorEngineServiceExtensions.Compile(_service, (string)Context.Operation.Template, (string)Context.Key, typeof(ExpandoObject));
-                Cache[key] = _service;
-            } catch (Exception ex) {
-                Context.Error(Context.Operation.Template.Replace("{", "{{").Replace("}", "}}"));
-                Context.Error(ex.Message);
-                Run = false;
+            var first = true;
+            foreach (var row in rows) {
+                if (first) {
+                    try {
+                        var output = _service.RunCompile((string)Context.Operation.Template, (string)Context.Key, typeof(ExpandoObject), row.ToFriendlyExpandoObject(_input), null);
+                        row[Context.Field] = _convert(output);
+                        first = false;
+                    } catch (Microsoft.CSharp.RuntimeBinder.RuntimeBinderException ex) {
+                        Context.Error(ex.Message.Replace("{", "{{").Replace("}", "}}"));
+                        yield break;
+                    } catch (TemplateCompilationException ex) {
+                        Context.Error(ex.Message.Replace("{", "{{").Replace("}", "}}"));
+                        yield break;
+                    }
+                    yield return row;
+                } else {
+                    var output = _service.Run(Context.Key, typeof(ExpandoObject), row.ToFriendlyExpandoObject(_input));
+                    row[Context.Field] = _convert(output);
+                    yield return row;
+                }
+
             }
 
-            return base.Operate(rows);
         }
 
         /// <summary>

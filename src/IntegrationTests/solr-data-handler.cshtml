@@ -19,9 +19,9 @@
     }
     builder.TrimEnd(",\r\n");
     if (process.Flatten) {
-        builder.AppendFormat("\r\nFROM {0} WITH (NOLOCK);", process.Flat);
+        builder.AppendFormat("\r\nFROM {0}{1} WITH (NOLOCK);", process.Name, process.FlatSuffix);
     } else {
-        builder.AppendFormat("\r\nFROM {0} WITH (NOLOCK);", process.Star);
+        builder.AppendFormat("\r\nFROM {0}{1} WITH (NOLOCK);", process.Name, process.StarSuffix);
     }
     var query = builder + System.Environment.NewLine;
 
@@ -37,9 +37,9 @@
     builder.AppendLine("SET @Last = DATEADD(HOUR,@OffSet,@Last);");
     builder.AppendLine("\r\nSELECT tflkey");
     if (process.Flatten) {
-        builder.AppendFormat("FROM {0} s WITH (NOLOCK)\r\n", process.Flat);
+        builder.AppendFormat("FROM {0}{1} s WITH (NOLOCK)\r\n", process.Name, process.FlatSuffix);
     } else {
-        builder.AppendFormat("FROM {0} s WITH (NOLOCK)\r\n", process.Star);
+        builder.AppendFormat("FROM {0}{1} s WITH (NOLOCK)\r\n", process.Name, process.StarSuffix);
     }
     builder.AppendFormat("INNER JOIN {0}Control c WITH (NOLOCK) ON (s.TflBatchId = c.BatchId)\r\n", process.Name);
     builder.AppendLine("WHERE c.[End] &gt; @Last");

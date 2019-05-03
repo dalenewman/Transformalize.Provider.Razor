@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Transformalize.Transform.Razor</id>
-    <version>0.3.12-beta</version>
+    <version>0.6.3-beta</version>
     <title>Razor Transform for Transformalize</title>
     <authors>Dale Newman</authors>
     <owners>Dale Newman</owners>
@@ -15,12 +15,12 @@
     <tags>etl</tags>
     <dependencies>
       <group targetFramework="net462">
-        <dependency id="Transformalize" version="0.3.12-beta" />
+        <dependency id="Transformalize" version="0.6.3-beta" />
         <dependency id="RazorEngine" version="3.10.0" />
       </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="..\src\Transformalize.Provider.Razor\bin\Release\Transformalize.Provider.Razor.dll" target="lib\net462\Transformalize.Provider.Razor.dll" />
+    <file src="..\src\Transformalize.Transform.Razor\bin\Release\Transformalize.Transform.Razor.dll" target="lib\net462\Transformalize.Transform.Razor.dll" />
   </files>
 </package>

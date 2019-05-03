@@ -28,13 +28,13 @@ using Transformalize.Providers.Razor.Autofac;
 
 namespace IntegrationTests {
 
-    [TestClass]
-    public class Test {
+   [TestClass]
+   public class Test {
 
-        [TestMethod]
-        public void TestRazorOutput() {
+      [TestMethod]
+      public void TestRazorOutput() {
 
-            const string xml = @"<add name='Razor' mode='init'>
+         const string xml = @"<add name='Razor' mode='init'>
   <parameters>
     <add name='Size' type='int' value='1000' />
   </parameters>
@@ -54,21 +54,22 @@ namespace IntegrationTests {
     </add>
   </entities>
 </add>";
-            using (var outer = new ConfigurationContainer().CreateScope(xml)) {
-                using (var inner = new TestContainer(new BogusModule(), new RazorModule()).CreateScope(outer, new ConsoleLogger(LogLevel.Debug))) {
-                    var process = inner.Resolve<Process>();
-                    var controller = inner.Resolve<IProcessController>();
-                    controller.Execute();
+         var logger = new ConsoleLogger(LogLevel.Debug);
+         using (var outer = new ConfigurationContainer().CreateScope(xml, logger)) {
+            var process = outer.Resolve<Process>();
+            using (var inner = new Container(new BogusModule(), new RazorModule()).CreateScope(process, logger)) {
+               var controller = inner.Resolve<IProcessController>();
+               controller.Execute();
 
-                    Assert.AreEqual((uint)1000, process.Entities.First().Inserts);
-                }
+               Assert.AreEqual((uint)1000, process.Entities.First().Inserts);
             }
-        }
+         }
+      }
 
-        [TestMethod]
-        public void TestLegacySolrDataImportHandler() {
+      [TestMethod]
+      public void TestLegacySolrDataImportHandler() {
 
-            const string xml = @"<add name='Razor' mode='init'>
+         const string xml = @"<add name='Razor' mode='init'>
   <parameters>
     <add name='Size' type='int' value='10' />
   </parameters>
@@ -88,16 +89,17 @@ namespace IntegrationTests {
     </add>
   </entities>
 </add>";
-            using (var outer = new ConfigurationContainer().CreateScope(xml)) {
-                using (var inner = new TestContainer(new BogusModule(), new RazorModule()).CreateScope(outer, new ConsoleLogger(LogLevel.Debug))) {
-                    var process = inner.Resolve<Process>();
-                    var controller = inner.Resolve<IProcessController>();
-                    controller.Execute();
+         var logger = new ConsoleLogger(LogLevel.Debug);
+         using (var outer = new ConfigurationContainer().CreateScope(xml, logger)) {
+            var process = outer.Resolve<Process>();
+            using (var inner = new Container(new BogusModule(), new RazorModule()).CreateScope(process, logger)) {
+               var controller = inner.Resolve<IProcessController>();
+               controller.Execute();
 
-                    Assert.AreEqual(0, process.Errors().Length);
+               Assert.AreEqual(0, process.Errors().Length);
 
-                }
             }
-        }
-    }
+         }
+      }
+   }
 }
