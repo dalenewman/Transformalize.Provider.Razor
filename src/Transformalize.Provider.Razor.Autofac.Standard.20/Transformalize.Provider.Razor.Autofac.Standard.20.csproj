@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Transformalize.Providers.Razor.Autofac</RootNamespace>
+    <AssemblyName>Transformalize.Provider.Razor.Autofac</AssemblyName>
+    <Version>0.6.28</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Transformalize.Container.Autofac" Version="0.6.28-beta" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Transformalize.Provider.Razor.Standard.20\Transformalize.Provider.Razor.Standard.20.csproj" />
+  </ItemGroup>
+
+  <Import Project="..\Transformalize.Provider.Razor.Autofac.Shared\Transformalize.Provider.Razor.Autofac.Shared.projitems" Label="Shared" />
+
+</Project>

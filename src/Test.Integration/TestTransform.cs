@@ -25,10 +25,10 @@ using Transformalize.Contracts;
 using Transformalize.Providers.Console;
 using Transformalize.Transforms.Razor.Autofac;
 
-namespace UnitTests {
+namespace Test.Integration {
 
    [TestClass]
-   public class Test {
+   public class TestTransform {
 
       /// <summary>
       /// note: just copied jint test to do this faster
@@ -61,9 +61,9 @@ namespace UnitTests {
     </entities>
 </add>";
          var logger = new ConsoleLogger(LogLevel.Debug);
-         using (var outer = new ConfigurationContainer(new RazorModule()).CreateScope(xml, logger)) {
+         using (var outer = new ConfigurationContainer(new RazorTransformModule()).CreateScope(xml, logger)) {
             var process = outer.Resolve<Process>();
-            using (var inner = new Container(new RazorModule()).CreateScope(process, logger)) {
+            using (var inner = new Container(new RazorTransformModule()).CreateScope(process, logger)) {
 
                var controller = inner.Resolve<IProcessController>();
                controller.Execute();

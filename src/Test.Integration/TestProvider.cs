@@ -26,10 +26,10 @@ using Transformalize.Providers.Bogus.Autofac;
 using Transformalize.Providers.Console;
 using Transformalize.Providers.Razor.Autofac;
 
-namespace IntegrationTests {
+namespace Test.Integration {
 
    [TestClass]
-   public class Test {
+   public class TestProvider {
 
       [TestMethod]
       public void TestRazorOutput() {
@@ -57,7 +57,7 @@ namespace IntegrationTests {
          var logger = new ConsoleLogger(LogLevel.Debug);
          using (var outer = new ConfigurationContainer().CreateScope(xml, logger)) {
             var process = outer.Resolve<Process>();
-            using (var inner = new Container(new BogusModule(), new RazorModule()).CreateScope(process, logger)) {
+            using (var inner = new Container(new BogusModule(), new RazorProviderModule()).CreateScope(process, logger)) {
                var controller = inner.Resolve<IProcessController>();
                controller.Execute();
 
@@ -92,7 +92,7 @@ namespace IntegrationTests {
          var logger = new ConsoleLogger(LogLevel.Debug);
          using (var outer = new ConfigurationContainer().CreateScope(xml, logger)) {
             var process = outer.Resolve<Process>();
-            using (var inner = new Container(new BogusModule(), new RazorModule()).CreateScope(process, logger)) {
+            using (var inner = new Container(new BogusModule(), new RazorProviderModule()).CreateScope(process, logger)) {
                var controller = inner.Resolve<IProcessController>();
                controller.Execute();
 

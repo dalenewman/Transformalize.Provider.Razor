@@ -26,7 +26,7 @@ using Transformalize.Contracts;
 using Transformalize.Nulls;
 
 namespace Transformalize.Providers.Razor.Autofac {
-    public class RazorModule : Module {
+    public class RazorProviderModule : Module {
 
         private const string Razor = "razor";
 

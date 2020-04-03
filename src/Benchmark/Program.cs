@@ -18,9 +18,9 @@ namespace Benchmark {
       [Benchmark(Baseline = true, Description = "10000 test rows")]
       public void TestRows() {
          var logger = new NullLogger();
-         using (var outer = new ConfigurationContainer(new RazorModule()).CreateScope(@"files\bogus.xml?Size=10000", logger)) {
+         using (var outer = new ConfigurationContainer(new RazorTransformModule()).CreateScope(@"files\bogus.xml?Size=10000", logger)) {
             var process = outer.Resolve<Process>();
-            using (var inner = new Container(new RazorModule(), new BogusModule()).CreateScope(process, logger)) {
+            using (var inner = new Container(new RazorTransformModule(), new BogusModule()).CreateScope(process, logger)) {
                var controller = inner.Resolve<IProcessController>();
                controller.Execute();
             }
@@ -30,9 +30,9 @@ namespace Benchmark {
       [Benchmark(Baseline = false, Description = "10000 rows with 1 razor")]
       public void CSharpRows() {
          var logger = new NullLogger();
-         using (var outer = new ConfigurationContainer(new RazorModule()).CreateScope(@"files\bogus-with-transform.xml?Size=10000", logger)) {
+         using (var outer = new ConfigurationContainer(new RazorTransformModule()).CreateScope(@"files\bogus-with-transform.xml?Size=10000", logger)) {
             var process = outer.Resolve<Process>();
-            using (var inner = new Container(new RazorModule(), new BogusModule()).CreateScope(process, logger)) {
+            using (var inner = new Container(new RazorTransformModule(), new BogusModule()).CreateScope(process, logger)) {
                var controller = inner.Resolve<IProcessController>();
                controller.Execute();
             }

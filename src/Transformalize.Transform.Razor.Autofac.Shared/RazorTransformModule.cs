@@ -25,7 +25,7 @@ using Transformalize.Contracts;
 using Parameter = Cfg.Net.Shorthand.Parameter;
 
 namespace Transformalize.Transforms.Razor.Autofac {
-    public class RazorModule : Module {
+    public class RazorTransformModule : Module {
 
         private HashSet<string> _methods;
         private ShorthandRoot _shortHand;
