@@ -11,8 +11,11 @@ using Transformalize.Configuration;
 
 namespace Benchmark {
 
-
+#if CORE
+   [RyuJitX64Job]
+#else
    [LegacyJitX64Job]
+#endif
    public class Benchmarks {
 
       [Benchmark(Baseline = true, Description = "10000 test rows")]

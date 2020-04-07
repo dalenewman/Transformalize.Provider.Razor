@@ -18,6 +18,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Cfg.Net.Contracts;
 using RazorEngineCore;
 using Transformalize.Contracts;
@@ -38,6 +39,8 @@ namespace Transformalize.Providers.Razor {
          var l = new Cfg.Net.Loggers.MemoryLogger();
          _output.Debug(() => $"Loading template {_output.Connection.Template}");
          var template = _templateReader.Read(_output.Connection.Template, new Dictionary<string, string>(), l);
+
+         template = Regex.Replace(template, "^@model .+$", string.Empty, RegexOptions.Multiline);
 
          if (l.Errors().Any()) {
             foreach (var error in l.Errors()) {

@@ -1,8 +1,9 @@
 ### Overview
 
-This adds a `Razor` provider and transform to Transformalize using [RazorEngine](https://github.com/Antaris/RazorEngine).  It is a plug-in compatible with Transformalize 0.3.6-beta.
-
-Build the Autofac project and put it's output into Transformalize's *plugins* folder.
+This is a `Razor` provider and transform for 
+[Transformalize](https://github.com/dalenewman/Transformalize) using [RazorEngine](https://github.com/Antaris/RazorEngine) 
+for the .NET Framework and [RazorEngineCore](https://github.com/adoconnection/RazorEngineCore) 
+for .NET Core.
 
 ### Write Usage
 
@@ -119,17 +120,33 @@ The table in *output.html* looks like this (clipped for brevity):
 
 ``` ini
 
-BenchmarkDotNet=v0.11.1, OS=Windows 10.0.16299.251 (1709/FallCreatorsUpdate/Redstone3)
+BenchmarkDotNet=v0.11.3, OS=Windows 10.0.18363
 Intel Core i7-7700HQ CPU 2.80GHz (Kaby Lake), 1 CPU, 8 logical and 4 physical cores
-Frequency=2742189 Hz, Resolution=364.6722 ns, Timer=TSC
-  [Host]       : .NET Framework 4.7.1 (CLR 4.0.30319.42000), 32bit LegacyJIT-v4.7.2633.0
-  LegacyJitX64 : .NET Framework 4.7.1 (CLR 4.0.30319.42000), 64bit LegacyJIT/clrjit-v4.7.2633.0;compatjit-v4.7.2633.0
+  [Host]       : .NET Framework 4.7.2 (CLR 4.0.30319.42000), 32bit LegacyJIT-v4.8.4150.0
+  LegacyJitX64 : .NET Framework 4.7.2 (CLR 4.0.30319.42000), 64bit LegacyJIT/clrjit-v4.8.4150.0;compatjit-v4.8.4150.0
 
 Job=LegacyJitX64  Jit=LegacyJit  Platform=X64  
 Runtime=Clr  
 
 ```
-|                    Method |    Mean |    Error |   StdDev | Scaled | ScaledSD |
-|-------------------------- |--------:|---------:|---------:|-------:|---------:|
-|         &#39;10000 test rows&#39; | 1.100 s | 0.0230 s | 0.0358 s |   1.00 |     0.00 |
-| &#39;10000 rows with 1 razor&#39; | 1.656 s | 0.0330 s | 0.0417 s |   1.51 |     0.06 |
+|                    Method |       Mean |    Error |   StdDev | Ratio | RatioSD |
+|-------------------------- |-----------:|---------:|---------:|------:|--------:|
+|         &#39;10000 test rows&#39; |   871.0 ms | 12.63 ms | 11.82 ms |  1.00 |    0.00 |
+| &#39;10000 rows with 1 razor&#39; | 1,222.3 ms | 23.75 ms | 30.03 ms |  1.41 |    0.05 |
+
+
+``` ini
+
+BenchmarkDotNet=v0.12.0, OS=Windows 10.0.18363
+Intel Core i7-7700HQ CPU 2.80GHz (Kaby Lake), 1 CPU, 8 logical and 4 physical cores
+.NET Core SDK=3.1.201
+  [Host]    : .NET Core 3.1.3 (CoreCLR 4.700.20.11803, CoreFX 4.700.20.12001), X64 RyuJIT
+  RyuJitX64 : .NET Core 3.1.3 (CoreCLR 4.700.20.11803, CoreFX 4.700.20.12001), X64 RyuJIT
+
+Job=RyuJitX64  Jit=RyuJit  Platform=X64  
+
+```
+|                    Method |     Mean |   Error |  StdDev | Ratio |
+|-------------------------- |---------:|--------:|--------:|------:|
+|         &#39;10000 test rows&#39; | 649.3 ms | 5.51 ms | 5.15 ms |  1.00 |
+| &#39;10000 rows with 1 razor&#39; | 850.6 ms | 7.03 ms | 6.58 ms |  1.31 |
