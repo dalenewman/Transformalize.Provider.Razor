@@ -54,7 +54,7 @@ namespace Transformalize.Providers.Razor.Autofac {
             }
 
             // Entity input
-            foreach (var entity in process.Entities.Where(e => process.Connections.First(c => c.Name == e.Connection).Provider == Razor)) {
+            foreach (var entity in process.Entities.Where(e => process.Connections.First(c => c.Name == e.Input).Provider == Razor)) {
 
                 // no input version detector
                 builder.RegisterType<NullInputProvider>().Named<IInputProvider>(entity.Key);
@@ -66,7 +66,7 @@ namespace Transformalize.Providers.Razor.Autofac {
                 }).Named<IRead>(entity.Key);
             }
 
-            if (process.Output().Provider == Razor) {
+            if (process.GetOutputConnection().Provider == Razor) {
 
                 // PROCESS OUTPUT CONTROLLER
                 builder.Register<IOutputController>(ctx => new NullOutputController()).As<IOutputController>();

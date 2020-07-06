@@ -4,11 +4,11 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Transformalize.Providers.Razor.Autofac</RootNamespace>
     <AssemblyName>Transformalize.Provider.Razor.Autofac</AssemblyName>
-    <Version>0.6.28</Version>
+    <Version>0.8.15-beta</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Transformalize.Container.Autofac" Version="0.6.28-beta" />
+    <PackageReference Include="Transformalize.Container.Autofac" Version="0.8.15-beta" />
   </ItemGroup>
 
   <ItemGroup>

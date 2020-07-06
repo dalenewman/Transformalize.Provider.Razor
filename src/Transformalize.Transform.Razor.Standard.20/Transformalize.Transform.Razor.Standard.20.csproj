@@ -1,15 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Transformalize.Transforms.Razor</RootNamespace>
     <AssemblyName>Transformalize.Transform.Razor</AssemblyName>
-    <Version>0.6.28</Version>
+    <Version>0.8.15</Version>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="RazorEngineCore" Version="2020.3.3" />
-    <PackageReference Include="Transformalize" Version="0.6.28-beta" />
+    <PackageReference Include="Transformalize" Version="0.8.14-beta" />
   </ItemGroup>
-
 </Project>

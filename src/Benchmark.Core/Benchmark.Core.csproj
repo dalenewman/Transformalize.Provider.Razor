@@ -17,10 +17,10 @@
 
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.12.0" />
-    <PackageReference Include="Transformalize.Container.Autofac" Version="0.6.28-beta" />
-    <PackageReference Include="Transformalize.Provider.Ado" Version="0.6.29-beta" />
-    <PackageReference Include="Transformalize.Provider.Ado.Autofac" Version="0.6.29-beta" />
-    <PackageReference Include="Transformalize.Provider.Bogus.Autofac" Version="0.6.28-beta" />
+    <PackageReference Include="Transformalize.Container.Autofac" Version="0.8.15-beta" />
+    <PackageReference Include="Transformalize.Provider.Ado" Version="0.8.8-beta" />
+    <PackageReference Include="Transformalize.Provider.Ado.Autofac" Version="0.8.8-beta" />
+    <PackageReference Include="Transformalize.Provider.Bogus.Autofac" Version="0.8.1-beta" />
   </ItemGroup>
 
   <ItemGroup>
