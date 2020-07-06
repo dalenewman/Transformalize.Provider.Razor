@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Transformalize.Transforms.Razor.Autofac</RootNamespace>
     <AssemblyName>Transformalize.Transform.Razor.Autofac</AssemblyName>
-    <Version>0.8.15</Version>
+    <Version>0.8.16</Version>
   </PropertyGroup>
   <Import Project="..\Transformalize.Transform.Razor.Autofac.Shared\Transformalize.Transform.Razor.Autofac.Shared.projitems" Label="Shared" />
   <ItemGroup>

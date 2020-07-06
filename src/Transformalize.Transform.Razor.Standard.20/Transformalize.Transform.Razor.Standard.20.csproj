@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Transformalize.Transforms.Razor</RootNamespace>
     <AssemblyName>Transformalize.Transform.Razor</AssemblyName>
-    <Version>0.8.15</Version>
+    <Version>0.8.16</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="RazorEngineCore" Version="2020.3.3" />
