@@ -49,7 +49,7 @@ namespace Transformalize.Providers.Razor {
          } else {
 
             var engine = new RazorEngine();
-            RazorEngineCompiledTemplate<RazorEngineTemplateBase<RazorModel>> compiledTemplate;
+            IRazorEngineCompiledTemplate<RazorEngineTemplateBase<RazorModel>> compiledTemplate;
 
             try {
                compiledTemplate = engine.Compile<RazorEngineTemplateBase<RazorModel>>(template, builder => {

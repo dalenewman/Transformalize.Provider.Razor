@@ -18,9 +18,7 @@
 
 using RazorEngineCore;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using Transformalize.Configuration;
 using Transformalize.Contracts;
@@ -76,7 +74,7 @@ namespace Transformalize.Transforms.Razor {
 
 
          var engine = new RazorEngine();
-         RazorEngineCompiledTemplate template;
+         IRazorEngineCompiledTemplate template;
 
          try {
             template = engine.Compile(Context.Operation.Template);

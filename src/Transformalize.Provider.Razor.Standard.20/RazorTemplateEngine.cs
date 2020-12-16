@@ -69,7 +69,7 @@ namespace Transformalize.Providers.Razor {
             }
          }
 
-         RazorEngineCompiledTemplate template;
+         IRazorEngineCompiledTemplate template;
          try {
             template = _engine.Compile(_context.Operation.Template);
             return template.Run(new {
