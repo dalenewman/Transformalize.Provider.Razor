@@ -8,6 +8,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="RazorEngineCore" Version="2020.3.3" />
-    <PackageReference Include="Transformalize" Version="0.8.30-beta" />
+    <PackageReference Include="Transformalize" Version="0.8.14-beta" />
   </ItemGroup>
 </Project>

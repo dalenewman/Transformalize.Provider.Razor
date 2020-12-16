@@ -8,11 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.1.1" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.1.1" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
     <PackageReference Include="coverlet.collector" Version="1.2.0" />
-    <PackageReference Include="Transformalize" Version="0.8.14-beta" />
-    <PackageReference Include="Transformalize.Provider.Console" Version="0.8.2-beta" />
+    <PackageReference Include="Transformalize" Version="0.8.30-beta" />
+    <PackageReference Include="Transformalize.Provider.Console" Version="0.8.29-beta" />
   </ItemGroup>
 
   <ItemGroup>
